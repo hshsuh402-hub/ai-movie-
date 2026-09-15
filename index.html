@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Surprise 😱</title>
+
+  <title>Surprise 😎</title>
+
   <style>
     body {
       margin: 0;
@@ -31,7 +33,7 @@
     }
 
     #start {
-      background: #ffcc00;
+      background: #ffc000;
     }
 
     #stop {
@@ -47,53 +49,60 @@
 
 <body>
 
+  <!-- START SCREEN -->
   <div id="startScreen">
     <h1>😎 Rocky</h1>
     <p>Ek Surprise Hai 🎁</p>
-    <button id="start" onclick="startPrank()">Open Rocky 😎</button>
+
+    <button id="start" onclick="startPrank()">
+      Open Rocky 😎
+    </button>
   </div>
 
+
+  <!-- PRANK SCREEN -->
   <div id="prank">
     <h1>😱 AAAAAAA!</h1>
-    <p>😂 PRANK HO GAYA!</p>
-    <button id="stop" onclick="stopSound()">🔇 Stop</button>
+    <p>😂 PRANK HO GAYA! 🤣</p>
+
+    <button id="stop" onclick="stopSound()">
+      🔇 Stop
+    </button>
   </div>
 
+
+  <!-- AUDIO -->
   <audio id="scream" preload="auto">
-   <source src="ReelAudio-33695.mp3" type="audio/mpeg"> 
+    <source src="ReelAudio-33695.mp3" type="audio/mpeg">
   </audio>
+
 
   <script>
     const sound = document.getElementById("scream");
 
     function startPrank() {
+
+      // Start screen hide
       document.getElementById("startScreen").style.display = "none";
+
+      // Prank screen show
       document.getElementById("prank").style.display = "block";
 
+      // Audio start
       sound.currentTime = 0;
-      sound.play().catch(() => {});
+
+      sound.play().catch(function(error) {
+        console.log("Audio play blocked:", error);
+      });
     }
 
+
     function stopSound() {
+
+      // Audio stop
       sound.pause();
       sound.currentTime = 0;
     }
-
-    // Page khulte hi prank screen aur audio start karne ki koshish.
-    window.addEventListener("load", function() {
-      document.getElementById("startScreen").style.display = "none";
-      document.getElementById("prank").style.display = "block";
-
-      sound.currentTime = 0;
-      sound.play().catch(() => {});
-    });
-
-    // Agar browser autoplay block kare, pehle tap par audio start ho jayega.
-    document.addEventListener("click", function() {
-      if (sound.paused) {
-        sound.play().catch(() => {});
-      }
-    }, { once: true });
   </script>
 
 </body>
