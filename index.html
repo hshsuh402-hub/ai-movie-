@@ -4,48 +4,133 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>Open Rocky 😈</title>
+
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#fff;font-family:Arial,sans-serif}
-#start{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;background:#111}
-#open{border:0;border-radius:15px;padding:18px 30px;font-size:22px;font-weight:700}
-#screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:#000}
-#vid{width:100%;height:100%;object-fit:contain}
-#soundBtn{position:fixed;right:15px;bottom:15px;z-index:30;display:none;border:0;border-radius:12px;padding:12px 16px;font-size:16px;font-weight:700}
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#000;
+  font-family:Arial,sans-serif;
+}
+
+#start{
+  position:fixed;
+  inset:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#111;
+}
+
+#open{
+  border:0;
+  border-radius:15px;
+  padding:18px 30px;
+  font-size:22px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+#screen{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:#000;
+}
+
+#vid{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+#soundBtn{
+  position:fixed;
+  right:15px;
+  bottom:15px;
+  z-index:30;
+  display:none;
+  border:0;
+  border-radius:12px;
+  padding:12px 16px;
+  font-size:16px;
+  font-weight:700;
+}
 </style>
 </head>
+
 <body>
-<div id="start"><button id="open">Open Rocky 😈</button></div>
+
+<div id="start">
+  <button id="open">Open Rocky 😈</button>
+</div>
+
 <div id="screen">
+
   <video id="vid" playsinline preload="auto">
     <source src="3335.mp4" type="video/mp4">
   </video>
+
   <audio id="aud" preload="auto">
     <source src="ReelAudio-33695.mp3" type="audio/mpeg">
   </audio>
-</div>
-<button id="soundBtn">🔊 Sound ON</button>
-<script>
-const start=document.getElementById('start');
-const screen=document.getElementById('screen');
-const open=document.getElementById('open');
-const vid=document.getElementById('vid');
-const aud=document.getElementById('aud');
-const soundBtn=document.getElementById('soundBtn');
 
-open.addEventListener('click',async()=>{
-  start.style.display='none';
-  screen.style.display='flex';
-  vid.muted=true;
-  vid.play().catch(()=>{});
-  aud.volume=1;
-  try{await aud.play();}catch(e){soundBtn.style.display='block';}
+</div>
+
+<button id="soundBtn">🔊 Sound ON</button>
+
+<script>
+const start = document.getElementById("start");
+const screen = document.getElementById("screen");
+const open = document.getElementById("open");
+const vid = document.getElementById("vid");
+const aud = document.getElementById("aud");
+const soundBtn = document.getElementById("soundBtn");
+
+open.addEventListener("click", async () => {
+
+  start.style.display = "none";
+  screen.style.display = "flex";
+
+  // Video ka original sound off,
+  // separate MP3 chalegi
+  vid.muted = true;
+
+  // Video start
+  vid.play().catch(() => {});
+
+  // MP3 start
+  aud.volume = 1;
+
+  try {
+    await aud.play();
+  } catch (error) {
+    soundBtn.style.display = "block";
+  }
+
 });
 
-soundBtn.addEventListener('click',async()=>{
-  try{await aud.play();soundBtn.style.display='none';}
-  catch(e){alert('Phone ka media volume check karo.');}
+// Agar browser audio ko rok de
+soundBtn.addEventListener("click", async () => {
+
+  try {
+    await aud.play();
+    soundBtn.style.display = "none";
+  } catch (error) {
+    alert("Phone ka media volume check karo.");
+  }
+
 });
 </script>
+
 </body>
 </html>
